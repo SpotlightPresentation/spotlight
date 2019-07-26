@@ -7,18 +7,25 @@ let pdf = 'https://spotlight-storage.s3.amazonaws.com/003-10-07-html-5-scalable-
 class Body extends Component {
 	state = {
 		displayPage: 1,
-		numPages: NaN
+		numPages: NaN,
+		tool: 'none'
 	};
-	setPages = (numPages) => {
+	getPages = (numPages) => {
 		this.setState(numPages);
 	};
+	setPage = (page) => {
+		this.setState({ displayPage: page });
+	};
+	setTool = (tool) => {
+		this.setState({ tool: tool });
+	};
 	handleNext = () => {
-		if (this.state.displayPage != this.state.numPages) {
+		if (this.state.displayPage !== this.state.numPages) {
 			this.setState({ displayPage: this.state.displayPage + 1 });
 		}
 	};
 	handleBack = () => {
-		if (this.state.displayPage != 1) {
+		if (this.state.displayPage !== 1) {
 			this.setState({ displayPage: this.state.displayPage - 1 });
 		}
 	};
@@ -26,9 +33,14 @@ class Body extends Component {
 		return (
 			<React.Fragment>
 				<Header />
-				<Deck content={pdf} passPages={this.setPages} pageNumber={this.state.displayPage} />
-				<Toolbar onNext={this.handleNext} onBack={this.handleBack} numPages={this.state.numPages} />
-				<Display onClick={this.next} content={pdf} pageNumber={this.state.displayPage} />
+				<Deck
+					content={pdf}
+					onClick={this.setPage}
+					passPages={this.getPages}
+					pageNumber={this.state.displayPage}
+				/>
+				<Toolbar onTool={this.setTool} numPages={this.state.numPages} tool={this.state.tool} />
+				<Display selectedTool={this.state.tool} content={pdf} pageNumber={this.state.displayPage} />
 			</React.Fragment>
 		);
 	}

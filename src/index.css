@@ -31,7 +31,7 @@
 	grid-row: 2 /3;
 
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 }
 .display {
@@ -53,4 +53,12 @@
 }
 .linkAnnotation {
 	display: none;
+}
+.drawing {
+	position: absolute;
+	height: 10px;
+	width: 30px;
+}
+.shadow {
+	opacity: .4;
 }
