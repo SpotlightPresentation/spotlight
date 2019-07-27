@@ -6,7 +6,7 @@ import Display from './display';
 let pdf = 'https://spotlight-storage.s3.amazonaws.com/003-10-07-html-5-scalable-vector-graphics.pdf';
 class Body extends Component {
 	state = {
-		displayPage: 1,
+		displayPage: 3,
 		numPages: NaN,
 		tool: 'none'
 	};
@@ -29,6 +29,17 @@ class Body extends Component {
 			this.setState({ displayPage: this.state.displayPage - 1 });
 		}
 	};
+	handleKey = (e) => {
+		if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+			this.handleNext();
+		}
+		if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+			this.handleBack();
+		}
+	};
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKey, false);
+	}
 	render() {
 		return (
 			<React.Fragment>

@@ -29,9 +29,16 @@ export default class Display extends Component {
 	};
 	handleClick = (e) => {
 		if (this.state.shadow) {
-			let joined = this.state.SVGs.concat(this.state.shadow);
-			this.setState({ SVGs: joined, shadow: null });
-		} else if (this.props.selectedTool !== 'none') {
+			if (
+				this.state.shadow.content === '' ||
+				(this.state.shadow.content === undefined && this.props.selectedTool === 'text')
+			) {
+				document.querySelector('#textCatcher').focus();
+			} else {
+				let joined = this.state.SVGs.concat(this.state.shadow);
+				this.setState({ SVGs: joined, shadow: null });
+			}
+		} else if (this.props.selectedTool !== 'none' && this.props.selectedTool !== 'text') {
 			this.setState({
 				shadow: {
 					type: this.props.selectedTool,
@@ -41,12 +48,33 @@ export default class Display extends Component {
 					endY: e.nativeEvent.layerY / this.state.height * 10000
 				}
 			});
+		} else {
+			document.querySelector('#textCatcher').focus();
+			this.setState({
+				shadow: {
+					type: this.props.selectedTool,
+					endX: e.nativeEvent.layerX / this.state.width * 10000,
+					endY: e.nativeEvent.layerY / this.state.height * 10000,
+					content: ''
+				}
+			});
 		}
 	};
-
+	setContent = () => {
+		if (this.props.selectedTool === 'text') {
+			let shadow = { ...this.state.shadow };
+			shadow.content = document.querySelector('#textCatcher').value;
+			this.setState({ shadow });
+			console.log('hello');
+		}
+	};
+	clearInput = () => {
+		document.querySelector('#textCatcher').value = '';
+	};
 	render() {
 		return (
 			<Document className="display" file={this.props.content}>
+				<input type="text" onChange={() => this.setContent()} onBlur={this.clearInput} id="textCatcher" />
 				<Page
 					onRenderSuccess={this.setDrawing}
 					height={window.innerHeight - 150}

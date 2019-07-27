@@ -62,3 +62,10 @@
 .shadow {
 	opacity: .4;
 }
+.shadow text::after {
+	border: solid black 3px;
+}
+#textCatcher {
+	position: absolute;
+	top: -20px;
+}

@@ -9,11 +9,7 @@ class Drawing extends Component {
 		};
 		let icons = [];
 		for (let icon of this.props.SVGs) {
-			if (icon.type === 'hilight') {
-				icons.push(factory(icon, this.props.height, this.props.width));
-			} else if (icon.type === 'arrow') {
-				icons.push(factory(icon, this.props.height, this.props.width));
-			}
+			icons.push(factory(icon, this.props.height, this.props.width));
 		}
 		return (
 			<svg className="drawing" style={divStyle}>
