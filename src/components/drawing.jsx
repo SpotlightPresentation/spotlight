@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import factory from './factory';
+
+let past;
 class Drawing extends Component {
-	state = {};
 	render() {
-		let divStyle = {
-			height: this.props.height,
-			width: this.props.width
-		};
 		let icons = [];
+
+		let animate = [];
 		for (let icon of this.props.SVGs) {
-			icons.push(factory(icon, this.props.height, this.props.width));
+			if (past !== this.props.SVGs) {
+				animate.push(factory(icon, this.props.height, this.props.width, true));
+				past = this.props.SVGs;
+			} else {
+				icons.push(factory(icon, this.props.height, this.props.width, false));
+			}
 		}
+
 		return (
-			<svg className="drawing" style={divStyle}>
+			<React.Fragment>
+				{animate}
 				{icons}
-			</svg>
+			</React.Fragment>
 		);
 	}
 }

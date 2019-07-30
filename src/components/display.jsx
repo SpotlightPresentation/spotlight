@@ -35,7 +35,8 @@ export default class Display extends Component {
 			) {
 				document.querySelector('#textCatcher').focus();
 			} else {
-				let joined = this.state.SVGs.concat(this.state.shadow);
+				let arrayed = [ this.state.shadow ];
+				let joined = arrayed.concat(this.state.SVGs);
 				this.setState({ SVGs: joined, shadow: null });
 			}
 		} else if (this.props.selectedTool !== 'none' && this.props.selectedTool !== 'text') {
@@ -65,7 +66,6 @@ export default class Display extends Component {
 			let shadow = { ...this.state.shadow };
 			shadow.content = document.querySelector('#textCatcher').value;
 			this.setState({ shadow });
-			console.log('hello');
 		}
 	};
 	clearInput = () => {
@@ -80,7 +80,12 @@ export default class Display extends Component {
 					height={window.innerHeight - 150}
 					pageNumber={this.props.pageNumber}
 				/>
-				<Drawing SVGs={this.state.SVGs} height={this.state.height} width={this.state.width} />
+				<Drawing
+					SVGs={this.state.SVGs}
+					shadow={this.state.shadow}
+					height={this.state.height}
+					width={this.state.width}
+				/>
 				<Shadow
 					shadow={this.state.shadow}
 					onClick={this.handleClick}

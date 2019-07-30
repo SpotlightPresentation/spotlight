@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import factory from './factory';
+
 class Shadow extends Component {
 	render() {
 		let divStyle = {
@@ -14,7 +15,7 @@ class Shadow extends Component {
 				onMouseMove={this.props.onMouseMove}
 				style={divStyle}
 			>
-				{this.props.shadow ? factory(this.props.shadow, this.props.height, this.props.width) : null}
+				{this.props.shadow ? factory(this.props.shadow, this.props.height, this.props.width, false) : null}
 			</svg>
 		);
 	}
