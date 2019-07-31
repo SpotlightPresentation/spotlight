@@ -5,8 +5,10 @@ export default function(icon, height, width, animate) {
 		width: width
 	};
 	let animated = 'drawing';
+	let anims = [ ' rollIn', ' fadeIn', ' zoomIn' ];
 	if (animate) {
-		animated += ' animated fadeInUp';
+		animated += ' animated';
+		animated += anims[Math.floor(Math.random() * anims.length)];
 	}
 	if (icon.type === 'hilight') {
 		let startX = icon.startX / 10000 * width;
