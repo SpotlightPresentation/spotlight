@@ -3,7 +3,7 @@ import Header from './header';
 import Deck from './deck';
 import Toolbar from './toolbar';
 import Display from './display';
-let pdf;
+let pdf = 'https://spotlight-storage.s3.amazonaws.com/003-10-07-html-5-scalable-vector-graphics.pdf';
 class Body extends Component {
 	state = {
 		displayPage: 3,
