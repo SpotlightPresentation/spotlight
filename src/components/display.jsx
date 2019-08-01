@@ -3,9 +3,8 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import Drawing from './drawing';
 import Shadow from './shadow';
-
+import Filepond from './filepond';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
 export default class Display extends Component {
 	state = {
 		SVGs: [],
@@ -13,6 +12,7 @@ export default class Display extends Component {
 		height: null,
 		width: null
 	};
+
 	setDrawing = () => {
 		let page = document.querySelector('.display canvas');
 		this.setState({ height: page.clientHeight, width: page.clientWidth });
@@ -37,6 +37,7 @@ export default class Display extends Component {
 			} else {
 				let arrayed = [ this.state.shadow ];
 				let joined = arrayed.concat(this.state.SVGs);
+
 				this.setState({ SVGs: joined, shadow: null });
 			}
 		} else if (this.props.selectedTool !== 'none' && this.props.selectedTool !== 'text') {
@@ -71,29 +72,41 @@ export default class Display extends Component {
 	clearInput = () => {
 		document.querySelector('#textCatcher').value = '';
 	};
+
 	render() {
 		return (
-			<Document className="display" file={this.props.content}>
-				<input type="text" onChange={() => this.setContent()} onBlur={this.clearInput} id="textCatcher" />
-				<Page
-					onRenderSuccess={this.setDrawing}
-					height={window.innerHeight - 150}
-					pageNumber={this.props.pageNumber}
-				/>
-				<Drawing
-					SVGs={this.state.SVGs}
-					shadow={this.state.shadow}
-					height={this.state.height}
-					width={this.state.width}
-				/>
-				<Shadow
-					shadow={this.state.shadow}
-					onClick={this.handleClick}
-					onMouseMove={this.handleMouseMove}
-					height={this.state.height}
-					width={this.state.width}
-				/>
-			</Document>
+			<React.Fragment>
+				{!this.props.content ? (
+					<Filepond />
+				) : (
+					<Document className="display" file={this.props.content}>
+						<input
+							type="text"
+							onChange={() => this.setContent()}
+							onBlur={this.clearInput}
+							id="textCatcher"
+						/>
+						<Page
+							onRenderSuccess={this.setDrawing}
+							height={window.innerHeight - 150}
+							pageNumber={this.props.pageNumber}
+						/>
+						<Drawing
+							SVGs={this.state.SVGs}
+							shadow={this.state.shadow}
+							height={this.state.height}
+							width={this.state.width}
+						/>
+						<Shadow
+							shadow={this.state.shadow}
+							onClick={this.handleClick}
+							onMouseMove={this.handleMouseMove}
+							height={this.state.height}
+							width={this.state.width}
+						/>
+					</Document>
+				)}
+			</React.Fragment>
 		);
 	}
 }

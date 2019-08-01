@@ -14,6 +14,7 @@ class Deck extends Component {
 
 	render() {
 		let cards = [];
+
 		for (let x = 1; x <= this.state.numPages; x++) {
 			if (this.props.pageNumber === x) {
 				cards.push(
@@ -31,7 +32,13 @@ class Deck extends Component {
 		}
 		return (
 			<div className="deck">
-				<Document className="deckDoc" file={this.props.content} onLoadSuccess={this.onDocumentLoadSuccess}>
+				<Document
+					error=""
+					noData=""
+					className="deckDoc"
+					file={this.props.content}
+					onLoadSuccess={this.onDocumentLoadSuccess}
+				>
 					{cards}
 				</Document>
 			</div>
