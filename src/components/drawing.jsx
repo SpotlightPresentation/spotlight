@@ -8,11 +8,13 @@ class Drawing extends Component {
 
 		let animate = [];
 		for (let icon of this.props.SVGs) {
-			if (past !== this.props.SVGs) {
-				animate.push(factory(icon, this.props.height, this.props.width, true));
-				past = this.props.SVGs;
-			} else {
-				icons.push(factory(icon, this.props.height, this.props.width, false));
+			if (icon.page === this.props.pageNumber) {
+				if (past !== this.props.SVGs) {
+					animate.push(factory(icon, this.props.height, this.props.width, true));
+					past = this.props.SVGs;
+				} else {
+					icons.push(factory(icon, this.props.height, this.props.width, false));
+				}
 			}
 		}
 
