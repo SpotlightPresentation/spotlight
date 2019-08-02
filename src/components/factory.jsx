@@ -57,7 +57,7 @@ export default function(icon, height, width, animate) {
 		let endY = icon.endY / 10000 * height;
 		return (
 			<svg key={Math.random()} className={animated} style={divStyle}>
-				<text className={animated} textAnchor="middle" x={endX} y={endY}>
+				<text fontSize={width / 20} className={animated} textAnchor="middle" x={endX} y={endY}>
 					{icon.content ? icon.content : 'Type Something'}
 				</text>
 			</svg>
