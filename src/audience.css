@@ -1,0 +1,4 @@
+#root {
+  grid-template-columns: 0px auto;
+  grid-template-rows: 0px 0px auto;
+}
